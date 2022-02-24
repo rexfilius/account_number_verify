@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 
 void main() {
+  _setupLogging();
   runApp(const MyApp());
+}
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
 }
 
 class MyApp extends StatelessWidget {
