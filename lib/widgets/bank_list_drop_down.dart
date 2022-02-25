@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../model/BankList.dart';
 import '../network/api_paystack.dart';
 
-class BankListWidget extends StatefulWidget {
-  const BankListWidget({Key? key}) : super(key: key);
+class BankListDropDownMenu extends StatefulWidget {
+  const BankListDropDownMenu({Key? key}) : super(key: key);
 
   @override
-  _BankListWidgetState createState() => _BankListWidgetState();
+  _BankListDropDownMenuState createState() => _BankListDropDownMenuState();
 }
 
-class _BankListWidgetState extends State<BankListWidget> {
+class _BankListDropDownMenuState extends State<BankListDropDownMenu> {
   late Future<BankList> bankList;
   String dropDownValue = 'Abbey Mortgage Bank';
 

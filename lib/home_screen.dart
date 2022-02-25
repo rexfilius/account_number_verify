@@ -1,4 +1,5 @@
-import 'package:account_number_verify/widgets/bank_list_widget.dart';
+import 'package:account_number_verify/widgets/bank_list_drop_down.dart';
+import 'package:account_number_verify/widgets/confirm_account_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: const [
-          BankListWidget(),
+          BankListDropDownMenu(),
+          ConfirmAccountWidget(),
         ],
       ),
     );
