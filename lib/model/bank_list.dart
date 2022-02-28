@@ -1,4 +1,4 @@
-import 'Data.dart';
+import 'bank_list_data.dart';
 
 class BankList {
   bool? status;
@@ -10,17 +10,6 @@ class BankList {
     this.message,
     required this.data,
   });
-
-  // BankList.fromJson(Map<String, dynamic> json) {
-  //   status = json['status'];
-  //   message = json['message'];
-  //   if (json['data'] != null) {
-  //     data = [];
-  //     json['data'].forEach((v) {
-  //       data.add(Data.fromJson(v));
-  //     });
-  //   }
-  // }
 
   factory BankList.fromJson(Map<String, dynamic> json) {
     return BankList(

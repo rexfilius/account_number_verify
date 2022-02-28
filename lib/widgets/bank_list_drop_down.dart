@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/BankList.dart';
+import '../model/bank_list.dart';
 import '../network/api_paystack.dart';
 
 class BankListDropDownMenu extends StatefulWidget {
@@ -27,8 +27,7 @@ class _BankListDropDownMenuState extends State<BankListDropDownMenu> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
-            var listOfBankNames =
-                snapshot.data?.data.map((bank) => bank.name).toList();
+            var listOfBanks = snapshot.data?.data.map((bank) => bank).toList();
             return DropdownButton<String>(
               value: dropDownValue,
               onChanged: (newValue) {
@@ -36,10 +35,10 @@ class _BankListDropDownMenuState extends State<BankListDropDownMenu> {
                   dropDownValue = newValue!;
                 });
               },
-              items: listOfBankNames?.map((bankName) {
+              items: listOfBanks?.map((bank) {
                 return DropdownMenuItem<String>(
-                  value: bankName,
-                  child: Text(bankName!),
+                  value: bank.name,
+                  child: Text(bank.name!),
                 );
               }).toList(),
             );

@@ -1,7 +1,7 @@
 import 'package:account_number_verify/network/api_paystack.dart';
 import 'package:flutter/material.dart';
 
-import '../model/BankList.dart';
+import '../model/bank_list.dart';
 import '../model/get_account_number.dart';
 
 class ConfirmAccountWidget extends StatefulWidget {
@@ -41,13 +41,14 @@ class _ConfirmAccountWidgetState extends State<ConfirmAccountWidget> {
           onPressed: () {
             setState(() {
               accountNumber = getAccountNumber(
-                accountNumber: int.parse(_controller.text), // 2009943490
-                bankCode: 50211, // (50211-KudaBank) (058 'GTB' - 0567482425)
+                accountNumber: int.parse(_controller.text),
+                bankCode: 50211,
               );
             });
           },
           child: const Text('Confirm Number'),
         ),
+        // (50211-KudaBank-2009943490) (058-GTB-0567482425)
         FutureBuilder<GetAccountNumber>(
           future: accountNumber,
           builder: (context, snapshot) {

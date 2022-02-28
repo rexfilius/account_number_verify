@@ -4,7 +4,7 @@ import 'package:account_number_verify/model/get_account_number.dart';
 import 'package:http/http.dart' as http;
 
 import '../keys/keys.dart';
-import '../model/BankList.dart';
+import '../model/bank_list.dart';
 
 const baseUrl = 'https://api.paystack.co/bank';
 
@@ -35,12 +35,3 @@ Future<GetAccountNumber> getAccountNumber({
   }
 }
 
-Future<List<Map<String, String>>> bankNameAndCode() async {
-  var a = await getListOfBanks();
-  var b = a.data
-      .map(
-        (bankData) => {'${bankData.name}': '${bankData.code}'},
-  )
-      .toList();
-  return b;
-}
