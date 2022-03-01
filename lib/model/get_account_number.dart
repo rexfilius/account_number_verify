@@ -1,15 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getAccountNumber = getAccountNumberFromJson(jsonString);
-
-import 'dart:convert';
-
-GetAccountNumber getAccountNumberFromJson(String str) =>
-    GetAccountNumber.fromJson(json.decode(str));
-
-String getAccountNumberToJson(GetAccountNumber data) =>
-    json.encode(data.toJson());
-
 class GetAccountNumber {
   GetAccountNumber({
     this.status,

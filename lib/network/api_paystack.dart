@@ -1,15 +1,17 @@
 import 'dart:convert';
 
-import 'package:account_number_verify/model/get_account_number.dart';
 import 'package:http/http.dart' as http;
+import 'package:account_number_verify/app_library.dart';
 
-import '../keys/keys.dart';
-import '../model/bank_list.dart';
-
+/// Base Url for the PayStack api
 const baseUrl = 'https://api.paystack.co/bank';
 
 Future<BankList> getListOfBanks() async {
-  final response = await http.get(Uri.parse(baseUrl));
+  final response = await http.get(
+    Uri.parse("$baseUrl?currency=NGN"),
+    headers: {'Authorization': 'Bearer $payStackKey'},
+  );
+
   if (response.statusCode == 200) {
     return BankList.fromJson(jsonDecode(response.body));
   } else {
@@ -18,8 +20,8 @@ Future<BankList> getListOfBanks() async {
 }
 
 Future<GetAccountNumber> getAccountNumber({
-  required int accountNumber,
-  required int bankCode,
+  required String accountNumber,
+  required String bankCode,
 }) async {
   String bankListUrl =
       '$baseUrl/resolve?account_number=$accountNumber&bank_code=$bankCode';
@@ -34,4 +36,3 @@ Future<GetAccountNumber> getAccountNumber({
     throw Exception(response.body);
   }
 }
-

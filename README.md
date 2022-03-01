@@ -1,16 +1,11 @@
 # account_number_verify
 
-A new Flutter project.
+A single screen app that confirms if a bank account number is authentic.
 
-## Getting Started
+The user selects a bank in the DropDown and inputs an account number in the TextField,
+and with the click of a button, the app makes an api call to PayStack.
 
-This project is a starting point for a Flutter application.
+If the api call is successful, the account number 'name' and 'number' is displayed
+for the user to see.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[PayStack documentation](https://paystack.com/docs/)

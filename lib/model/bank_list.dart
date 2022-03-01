@@ -1,4 +1,4 @@
-import 'bank_list_data.dart';
+import 'package:account_number_verify/app_library.dart';
 
 class BankList {
   bool? status;

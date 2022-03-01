@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-
-import 'home_screen.dart';
+import 'package:account_number_verify/app_library.dart';
 
 void main() {
   _setupLogging();
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
