@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:account_number_verify/app_library.dart';
 
@@ -78,6 +77,7 @@ class _PayStackScreenState extends State<PayStackScreen> {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             controller: _controller,
+            keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               labelText: 'Your Account Number?',
               border: OutlineInputBorder(),
@@ -98,24 +98,7 @@ class _PayStackScreenState extends State<PayStackScreen> {
           child: const Text('Confirm Number'),
         ),
         // (50211-KudaBank-2009943490) (058-GTB-0567482425)
-        FutureBuilder<GetAccountNumber>(
-          future: accountNumber,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
-                final number = snapshot.data?.data.accountNumber;
-                final name = snapshot.data?.data.accountName;
-                return AccountNumberText(
-                  bankAccountName: name ?? 'No name',
-                  bankAccountNumber: number ?? 'No number',
-                );
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-            }
-            return const Center();
-          },
-        ),
+        AccountNumberBuilder(accountNumber: accountNumber),
       ],
     );
   }

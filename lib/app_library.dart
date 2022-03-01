@@ -12,4 +12,5 @@ export 'network/api_paystack.dart';
 /// for the screen classes
 export 'screens/paystack_screen/paystack_screen.dart';
 export 'screens/paystack_screen/widgets/account_number_text.dart';
+export 'screens/paystack_screen/widgets/account_number_builder.dart';
 export 'screens/home_screen.dart';
