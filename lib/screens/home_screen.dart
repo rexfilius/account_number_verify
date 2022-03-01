@@ -10,11 +10,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('PayStack API'),
       ),
-      body: Column(
-        children: const [
-          PayStackScreen(),
-        ],
-      ),
+      body: const PayStackScreen(),
     );
   }
 }

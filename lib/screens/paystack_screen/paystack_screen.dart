@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:account_number_verify/app_library.dart';
 
@@ -36,6 +37,7 @@ class _PayStackScreenState extends State<PayStackScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         FutureBuilder<BankList>(
           future: bankList,
@@ -44,20 +46,26 @@ class _PayStackScreenState extends State<PayStackScreen> {
               if (snapshot.hasData) {
                 var listOfBanks =
                     snapshot.data?.data.map((bank) => bank).toList();
-                return DropdownButton<String>(
-                  value: dropDownValue,
-                  onChanged: (newValue) {
-                    setState(() {
-                      dropDownValue = newValue!;
-                      bankItemCode = _getBankCode(listOfBanks!, dropDownValue);
-                    });
-                  },
-                  items: listOfBanks?.map((bank) {
-                    return DropdownMenuItem<String>(
-                      value: bank.name,
-                      child: Text(bank.name!),
-                    );
-                  }).toList(),
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    elevation: 12,
+                    value: dropDownValue,
+                    onChanged: (newValue) {
+                      setState(() {
+                        dropDownValue = newValue!;
+                        bankItemCode =
+                            _getBankCode(listOfBanks!, dropDownValue);
+                      });
+                    },
+                    items: listOfBanks?.map((bank) {
+                      return DropdownMenuItem<String>(
+                        value: bank.name,
+                        child: Text(bank.name!),
+                      );
+                    }).toList(),
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return Center(child: Text('${snapshot.error}'));
@@ -97,7 +105,10 @@ class _PayStackScreenState extends State<PayStackScreen> {
               if (snapshot.hasData) {
                 final number = snapshot.data?.data.accountNumber;
                 final name = snapshot.data?.data.accountName;
-                return Text('$name $number');
+                return AccountNumberText(
+                  bankAccountName: name ?? 'No name',
+                  bankAccountNumber: number ?? 'No number',
+                );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
