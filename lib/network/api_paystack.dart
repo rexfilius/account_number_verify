@@ -25,6 +25,7 @@ Future<GetAccountNumber> getAccountNumber({
 }) async {
   String bankListUrl =
       '$baseUrl/resolve?account_number=$accountNumber&bank_code=$bankCode';
+
   final response = await http.get(
     Uri.parse(bankListUrl),
     headers: {'Authorization': 'Bearer $payStackKey'},
