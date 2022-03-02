@@ -1,16 +1,14 @@
-import 'package:account_number_verify/screens/paystack_screen/providers/paystack_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:account_number_verify/app_library.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PayStackScreen extends ConsumerStatefulWidget {
+class PayStackScreen extends StatefulWidget {
   const PayStackScreen({Key? key}) : super(key: key);
 
   @override
   _PayStackScreenState createState() => _PayStackScreenState();
 }
 
-class _PayStackScreenState extends ConsumerState {
+class _PayStackScreenState extends State<PayStackScreen> {
   late Future<BankList> bankList;
   Future<GetAccountNumber>? accountNumber;
   final TextEditingController _controller = TextEditingController();
@@ -37,18 +35,43 @@ class _PayStackScreenState extends ConsumerState {
 
   @override
   Widget build(BuildContext context) {
-    AsyncValue<BankList> bankList = ref.watch(bankListProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        bankList.when(
-          data: (bankList) {
-            return Text('');
+        FutureBuilder<BankList>(
+          future: bankList,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                var listOfBanks =
+                    snapshot.data?.data.map((bank) => bank).toList();
+                return Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: DropdownButton<String>(
+                    isExpanded: true,
+                    elevation: 12,
+                    value: dropDownValue,
+                    onChanged: (newValue) {
+                      setState(() {
+                        dropDownValue = newValue!;
+                        bankItemCode =
+                            _getBankCode(listOfBanks!, dropDownValue);
+                      });
+                    },
+                    items: listOfBanks?.map((bank) {
+                      return DropdownMenuItem<String>(
+                        value: bank.name,
+                        child: Text(bank.name!),
+                      );
+                    }).toList(),
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Center(child: Text('${snapshot.error}'));
+              }
+            }
+            return const Center(child: CircularProgressIndicator());
           },
-          error: (error, stack) {
-            return Text('$error');
-          },
-          loading: () => const CircularProgressIndicator(),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -80,39 +103,3 @@ class _PayStackScreenState extends ConsumerState {
     );
   }
 }
-
-// FutureBuilder<BankList>(
-//           future: bankList,
-//           builder: (context, snapshot) {
-//             if (snapshot.connectionState == ConnectionState.done) {
-//               if (snapshot.hasData) {
-//                 var listOfBanks =
-//                     snapshot.data?.data.map((bank) => bank).toList();
-//                 return Padding(
-//                   padding: const EdgeInsets.all(16.0),
-//                   child: DropdownButton<String>(
-//                     isExpanded: true,
-//                     elevation: 12,
-//                     value: dropDownValue,
-//                     onChanged: (newValue) {
-//                       setState(() {
-//                         dropDownValue = newValue!;
-//                         bankItemCode =
-//                             _getBankCode(listOfBanks!, dropDownValue);
-//                       });
-//                     },
-//                     items: listOfBanks?.map((bank) {
-//                       return DropdownMenuItem<String>(
-//                         value: bank.name,
-//                         child: Text(bank.name!),
-//                       );
-//                     }).toList(),
-//                   ),
-//                 );
-//               } else if (snapshot.hasError) {
-//                 return Center(child: Text('${snapshot.error}'));
-//               }
-//             }
-//             return const Center(child: CircularProgressIndicator());
-//           },
-//         ),
